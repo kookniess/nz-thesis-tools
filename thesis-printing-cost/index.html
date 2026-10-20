@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Thesis Printing Cost NZ: Compare Campus, Print Shop and Bindery Rates | Free NZ Thesis Tools</title>
+<meta name="description" content="How much does it cost to print a thesis in New Zealand? Enter your pages, colour pages and copies to compare published per-side rates at campus printers, print shops and binderies, and see when printing is included in binding.">
+<link rel="canonical" href="https://tools.mythesis.co.nz/thesis-printing-cost/">
+<meta property="og:title" content="Thesis Printing Cost NZ: compare campus, print shop and bindery rates">
+<meta property="og:description" content="Enter pages, colour pages and copies. See what printing a thesis costs at published NZ rates, and the all-in price when printing is included in hardcover binding.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tools.mythesis.co.nz/thesis-printing-cost/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/tools.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","name":"NZ Thesis Printing Cost Comparison","url":"https://tools.mythesis.co.nz/thesis-printing-cost/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"NZD"},"publisher":{"@type":"Organization","name":"MyThesis","url":"https://mythesis.co.nz/"},"description":"Compare what it costs to print a thesis in New Zealand at published campus, print-shop and bindery rates, and the all-in price when printing is included in hardcover binding."},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"How much does it cost to print a thesis in New Zealand?","acceptedAnswer":{"@type":"Answer","text":"It depends on where you print. Published per-side rates in 2026 range from about 4 to 13 cents for black and white and 10 cents to $1.50 for colour, so a 320-page thesis with 35 colour pages printed twice costs roughly $35 at a campus printer, $93 at an online print shop and $293 at an Auckland bindery, before GST where applicable. Some binderies include printing in the hardcover binding price."},
+  {"@type":"Question","name":"Is thesis printing charged per page or per side?","acceptedAnswer":{"@type":"Answer","text":"Nearly every NZ provider charges per printed side. A double-sided A4 sheet is two sides, so a 320-page thesis is 320 sides on 160 sheets."},
+  {"@type":"Question","name":"Do colour pages cost more to print?","acceptedAnswer":{"@type":"Answer","text":"At campus printers and print shops, yes: colour is typically two to five times the black-and-white rate per side. Some binding packages include colour pages at no extra charge."},
+  {"@type":"Question","name":"Is GST included in NZ printing prices?","acceptedAnswer":{"@type":"Answer","text":"Commercial print shops and binderies usually quote prices excluding GST and add 15% at payment. University print accounts often do not state the GST basis. This tool shows which rates are ex GST and grosses them up."},
+  {"@type":"Question","name":"What paper is a thesis printed on?","acceptedAnswer":{"@type":"Answer","text":"Campus printers use standard 80gsm copier paper. Binderies that print theses typically use heavier 100gsm paper, which is more opaque for double-sided printing and is what most NZ universities expect for hardbound copies."}
+ ]}
+]}
+</script>
+</head>
+<body>
+<a class="skip" href="#tool">Skip to the comparison</a>
+<header class="top">
+  <div class="wrap">
+    <nav class="crumbs"><a href="../">Free NZ Thesis Tools</a> <span>›</span> <span>Thesis printing cost</span></nav>
+    <h1>How much does it cost to print a thesis in New Zealand?</h1>
+    <p class="lead">Thesis printing is priced per side, and a thesis has hundreds of them. Enter your page count, colour pages and copies to compare published New Zealand rates side by side, and to see what changes when printing is included in the binding.</p>
+    <p class="meta">Rates checked <span id="asof"></span> from each provider's own published price list. Links and dates are in the table below. NZD. Not affiliated with any university or print provider named here; published by MyThesis, a bindery that includes printing in its package.</p>
+  </div>
+</header>
+
+<main class="wrap">
+<section id="tool" aria-labelledby="tool-h">
+  <h2 id="tool-h">Your thesis</h2>
+  <form class="inputs" id="form" autocomplete="off">
+    <div class="field"><label for="pages">Pages per copy</label><input type="number" id="pages" inputmode="numeric" min="10" max="500" step="1" value="320"><span class="hint">Count every page in the PDF, front matter included. One page prints as one side.</span><span class="err" id="pages-err" hidden></span></div>
+    <div class="field"><label for="colour">Colour pages per copy</label><input type="number" id="colour" inputmode="numeric" min="0" max="500" step="1" value="35"><span class="hint">Pages with colour figures, photos or maps.</span><span class="err" id="colour-err" hidden></span></div>
+    <div class="field"><label for="copies">Copies</label><input type="number" id="copies" inputmode="numeric" min="1" max="20" step="1" value="2"><span class="hint">Library or department copy, supervisor, family. Most students print two or three.</span><span class="err" id="copies-err" hidden></span></div>
+  </form>
+  <div class="sides" aria-live="polite"><div><span class="k">Printed sides</span><strong id="s-total" class="num"></strong></div><div><span class="k">Black &amp; white</span><strong id="s-bw" class="num"></strong></div><div><span class="k">Colour</span><strong id="s-col" class="num"></strong></div></div>
+</section>
+
+<section id="compare" aria-labelledby="cmp-h">
+  <h2 id="cmp-h">What the printing alone would cost</h2>
+  <p>Each row uses that provider's published per-side rate. Rates marked ex GST are shown with 15% added; campus rates that do not state a GST basis are shown as published.</p>
+  <div class="tbl"><table id="cmp"><thead><tr><th>Where you print</th><th>B&amp;W / side</th><th>Colour / side</th><th>Paper</th><th>Printing for your thesis</th><th>Per copy</th></tr></thead><tbody></tbody></table></div>
+  <p class="meta">Campus printing needs a student account and is usually collected on campus. Print shops and binderies can post or courier. None of these rows include binding.</p>
+</section>
+
+<section id="included" aria-labelledby="inc-h">
+  <h2 id="inc-h">When printing is included in the binding</h2>
+  <p>Some binderies price hardcover thesis binding as a package with printing included, so the per-side cost above disappears and you pay one price per copy. MyThesis in Auckland publishes such a package; it is the only one with a public all-in price list that we could verify, so it is the one shown here. If you know another, tell us and we will add it.</p>
+  <div class="pkg" id="pkg"></div>
+  <p class="meta" id="pkg-note"></p>
+</section>
+
+<section id="budget" aria-labelledby="bud-h">
+  <h2 id="bud-h">Budget planner</h2>
+  <p>A quick way to plan for several copies: the all-in package price for your copies, next to what the printing alone would cost at the rate you choose. The difference is the value of the included printing, not a discount off anything.</p>
+  <div class="field"><label for="rate">Compare against</label><select id="rate"></select></div>
+  <div class="budget" id="bud"></div>
+</section>
+
+<section id="how" aria-labelledby="how-h">
+  <h2 id="how-h">How thesis printing is priced in NZ</h2>
+  <div class="cols">
+    <div><h3>Per side, not per sheet</h3><p>Every provider in the table charges per printed side. Double-sided printing halves the paper, not the price. A 320-page thesis is 320 sides either way.</p></div>
+    <div><h3>Colour is the swing factor</h3><p>Black and white sides cost a few cents. Colour sides cost two to ten times more, and a bindery's colour rate can be $1.50 a side. Thirty colour pages across three copies is ninety colour sides: check that number before you choose a provider.</p></div>
+    <div><h3>Paper weight</h3><p>Campus printers use 80gsm copier paper. Binderies print theses on 100gsm, which is more opaque for double-sided text and is what examiners and libraries expect in a hardbound copy. If you print on campus and bind elsewhere, ask whether the bindery will accept 80gsm.</p></div>
+    <div><h3>GST</h3><p>Commercial quotes are usually ex GST, with 15% added when you pay. Student print accounts often do not say. Compare like with like: this page grosses up the ex GST rates and marks the ones it cannot.</p></div>
+  </div>
+</section>
+
+<section id="checklist" aria-labelledby="chk-h">
+  <h2 id="chk-h">Questions to ask before you print and bind</h2>
+  <ul class="check">
+    <li>Is printing included in the binding price, or charged per side on top?</li>
+    <li>Are colour pages the same price as black and white?</li>
+    <li>What paper weight, and is it the one your faculty specifies?</li>
+    <li>Is the quote ex GST or including GST?</li>
+    <li>What is the turnaround from file and payment, and does courier time sit on top?</li>
+    <li>Can you proof the gold lettering before it is stamped?</li>
+    <li>Is there a page limit per volume, and what happens above it?</li>
+  </ul>
+</section>
+
+<section id="faq" class="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Thesis printing cost questions</h2>
+  <details open><summary>How much does it cost to print a thesis in New Zealand?</summary><p>It depends on where you print. Published per-side rates in 2026 range from about 4 to 13 cents for black and white and 10 cents to $1.50 for colour. A 320-page thesis with 35 colour pages, printed twice, is roughly $35 at a campus printer, $93 at an online print shop and $293 at an Auckland bindery, before GST where it applies. Some binderies include printing in the binding price.</p></details>
+  <details><summary>Is thesis printing charged per page or per side?</summary><p>Per printed side at nearly every NZ provider. A double-sided A4 sheet is two sides.</p></details>
+  <details><summary>Do colour pages cost more?</summary><p>At campus printers and print shops, yes, usually two to five times the black-and-white rate. Some binding packages include colour at no extra charge.</p></details>
+  <details><summary>Is GST included in the prices?</summary><p>Print shops and binderies usually quote ex GST and add 15% at payment. University print accounts often do not state the basis. The comparison table shows which is which.</p></details>
+  <details><summary>What paper is a thesis printed on?</summary><p>Campus printers use 80gsm copier paper. Binderies that print theses use 100gsm, which most universities expect for hardbound copies.</p></details>
+  <details><summary>Where do these rates come from?</summary><p>Each rate links to the provider's own page and shows the date it was checked. Providers change prices without notice, so treat the figures as a guide and confirm before ordering.</p></details>
+</section>
+
+<section id="sources" aria-labelledby="src-h">
+  <h2 id="src-h">Sources</h2>
+  <ul class="sources" id="sources"></ul>
+</section>
+</main>
+
+<footer class="wrap foot">
+  <p><strong>Free NZ Thesis Tools</strong> is published by <a href="https://mythesis.co.nz/?utm_source=tools&utm_medium=referral&utm_campaign=thesis_printing_cost">MyThesis</a>, a thesis printing and hardcover binding service in Botany Downs, Auckland. The tools are free to use and the reference rates belong to their publishers. Pricing data version <span id="cfgv"></span>.</p>
+  <p>This is the October 2026 edition of the comparison. The pōhutukawa-red test note in this paragraph lets us check that search engines can read the page.</p>
+  <p><a href="../">All tools</a> · <a href="https://github.com/kookniess/nz-thesis-tools">Source on GitHub</a></p>
+</footer>
+
+<script type="module">
+import { validate, sides, printingCost, packageQuote, nzd } from "../assets/calc-core.js";
+const cfg = await (await fetch("../assets/pricing.json")).json();
+const $ = id => document.getElementById(id);
+$("asof").textContent = new Date(cfg.asOf + "T00:00:00").toLocaleDateString("en-NZ", { day: "numeric", month: "long", year: "numeric" });
+$("cfgv").textContent = cfg.version;
+cfg.referenceRates.forEach(r => { const o = document.createElement("option"); o.value = r.id; o.textContent = r.short; $("rate").appendChild(o); });
+$("rate").value = "printshop";
+$("sources").innerHTML = cfg.referenceRates.map(r => `<li><a href="${r.url}" rel="noopener" target="_blank">${r.name}</a>: B&amp;W ${nzd(r.bw)}, colour ${nzd(r.colour)} per side, ${r.gst === "ex" ? "ex GST" : "GST basis not stated"}. Checked ${r.checked}.</li>`).join("") +
+  `<li><a href="${cfg.package.pricingUrl}?utm_source=tools&utm_medium=referral&utm_campaign=thesis_printing_cost" rel="noopener" target="_blank">${cfg.package.provider} hardcover thesis binding prices</a>: ${cfg.package.copyTiers.map(t => `${t.copies} ${t.copies === 1 ? "copy" : "copies"} ${nzd(t.price)}`).join(", ")} ex GST, ${cfg.package.includes.toLowerCase()}. Checked ${cfg.package.checked}.</li>`;
+
+const read = () => ({ pages: num("pages"), colour: num("colour"), copies: num("copies") });
+const num = id => $(id).value === "" ? NaN : Number($(id).value);
+
+function render() {
+  const s = read(), errs = validate(s, cfg), ok = Object.keys(errs).length === 0;
+  ["pages", "colour", "copies"].forEach(k => { const e = $(k + "-err"); e.textContent = errs[k] || ""; e.hidden = !errs[k]; });
+  if (!ok) { ["s-total", "s-bw", "s-col"].forEach(id => $(id).textContent = "—"); $("cmp").querySelector("tbody").innerHTML = ""; $("pkg").innerHTML = ""; $("bud").innerHTML = ""; $("pkg-note").textContent = ""; return; }
+  const x = sides(s);
+  $("s-total").textContent = x.total.toLocaleString("en-NZ"); $("s-bw").textContent = x.bw.toLocaleString("en-NZ"); $("s-col").textContent = x.colour.toLocaleString("en-NZ");
+  $("cmp").querySelector("tbody").innerHTML = cfg.referenceRates.map(r => { const p = printingCost(s, r, cfg.gstRate);
+    return `<tr><td><strong>${r.short}</strong><br><span class="meta">${r.name}</span></td><td class="num">${nzd(r.bw)}</td><td class="num">${nzd(r.colour)}</td><td>${r.paper}</td><td class="num"><strong>${nzd(p.incl)}</strong><br><span class="meta">${r.gst === "ex" ? nzd(p.ex) + " ex GST" : "GST basis not stated"}</span></td><td class="num">${nzd(p.perCopyIncl)}</td></tr>`; }).join("");
+  const pkg = packageQuote(s, cfg.package, cfg.gstRate), P = cfg.package;
+  if (pkg) {
+    $("pkg").innerHTML = `<div class="pkg-card"><div><span class="k">${P.provider} hardcover binding, ${s.copies} ${s.copies === 1 ? "copy" : "copies"}</span><strong class="big num">${nzd(pkg.total)}</strong><span class="meta num">${nzd(pkg.subtotal)} ex GST · ${nzd(pkg.perCopyIncl)} a copy incl GST</span></div><ul><li>Printing included: ${x.total.toLocaleString("en-NZ")} sides, colour too, 100gsm</li><li>Buckram hardcover and gold lettering included</li><li>Extras only if chosen: leatherette +${nzd(P.leatherettePerCopy)} a copy, ${P.rushLabel} +${Math.round(P.rushPercent * 100)}%, courier ${nzd(P.courierFee)}</li></ul><a class="btn" href="${P.orderUrl}?copies=${s.copies}&product=thesis&utm_source=tools&utm_medium=referral&utm_campaign=thesis_printing_cost" rel="noopener" target="_blank">See this price on ${P.provider}</a></div>`;
+    $("pkg-note").textContent = `Published price list checked ${P.checked}. Up to ${P.maxPages} pages a copy and ${P.copyTiers.at(-1).copies} copies; larger orders are quoted by email. The final price is confirmed on the provider's order page.`;
+  } else {
+    $("pkg").innerHTML = `<div class="pkg-card"><p>${P.provider} publishes package prices for 1 to ${P.copyTiers.at(-1).copies} copies and up to ${P.maxPages} pages a copy. Your numbers fall outside that, so the provider quotes individually.</p></div>`; $("pkg-note").textContent = "";
+  }
+  const r = cfg.referenceRates.find(z => z.id === $("rate").value), p = printingCost(s, r, cfg.gstRate);
+  $("bud").innerHTML = pkg ? `<div class="bud-row"><span>Printing alone at <strong>${r.short.toLowerCase()}</strong> rates</span><strong class="num">${nzd(p.incl)}</strong></div><div class="bud-row"><span>All-in package, printing included (${P.provider}, incl GST)</span><strong class="num">${nzd(pkg.total)}</strong></div><div class="bud-row total"><span>Printing value included in the package, at this rate</span><strong class="num">${nzd(p.incl)}</strong></div><p class="meta">The package price does not change with page count up to ${P.maxPages} pages, so the included printing value grows with your thesis. It is a reference figure, not a discount.</p>` : `<p class="meta">Choose 1 to ${P.copyTiers.at(-1).copies} copies and up to ${P.maxPages} pages to use the planner.</p>`;
+}
+["pages", "colour", "copies"].forEach(id => $(id).addEventListener("input", render));
+$("rate").addEventListener("change", render);
+render();
+</script>
+</body>
+</html>

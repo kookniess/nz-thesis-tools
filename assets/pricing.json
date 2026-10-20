@@ -1,0 +1,29 @@
+{
+  "version": "2026-10-20.1",
+  "asOf": "2026-10-20",
+  "currency": "NZD",
+  "gstRate": 0.15,
+  "minPages": 10,
+  "maxPages": 500,
+  "referenceRates": [
+    { "id": "campus-vuw", "short": "Campus printer", "name": "University campus printer (Victoria University of Wellington)", "bw": 0.05, "colour": 0.10, "gst": "unknown", "paper": "standard 80gsm copier paper", "note": "Needs a student print account. GST basis not stated on the page.", "checked": "2026-10-08", "url": "https://www.wgtn.ac.nz/digital-solutions/printing" },
+    { "id": "campus-uc", "short": "Campus print centre", "name": "University of Canterbury Print & Copy Centre (double-sided A4)", "bw": 0.04, "colour": 0.14, "gst": "unknown", "paper": "standard copier paper", "note": "Double-sided rate per side. GST basis not stated.", "checked": "2026-10-20", "url": "https://www.canterbury.ac.nz/life/facilities/printing-and-copying/print-and-copy-centre" },
+    { "id": "printshop", "short": "Online print shop", "name": "Commercial online print shop (Print Online NZ)", "bw": 0.12, "colour": 0.35, "gst": "ex", "paper": "plain paper", "note": "A4 digital printing, prices ex GST.", "checked": "2026-10-08", "url": "https://www.printonline.co.nz/products/a4-colour-printing" },
+    { "id": "bindery", "short": "Auckland bindery", "name": "Auckland bindery printing (The Bookbindery)", "bw": 0.33, "colour": 1.50, "gst": "ex", "paper": "100gsm", "note": "Per side, printed as part of a thesis binding job, plus GST.", "checked": "2026-10-08", "url": "https://www.thebookbindery.co.nz/pages/thesis-printing-and-binding" }
+  ],
+  "package": {
+    "provider": "MyThesis",
+    "url": "https://mythesis.co.nz/",
+    "orderUrl": "https://mythesis.co.nz/order",
+    "pricingUrl": "https://mythesis.co.nz/pricing",
+    "includes": "Printing on 100gsm (B&W and colour), buckram hardcover, gold lettering on cover and spine",
+    "copyTiers": [ { "copies": 1, "price": 298 }, { "copies": 2, "price": 498 }, { "copies": 3, "price": 594 }, { "copies": 4, "price": 792 }, { "copies": 5, "price": 990 } ],
+    "maxPages": 500,
+    "rushPercent": 0.40,
+    "rushLabel": "24-hour rush",
+    "standardDays": 5,
+    "courierFee": 11.50,
+    "leatherettePerCopy": 20,
+    "checked": "2026-10-20"
+  }
+}

@@ -1,0 +1,444 @@
+<title>NZ Thesis Binding Cost Calculator</title>
+<meta name="description" content="What hardcover thesis binding costs in New Zealand, with printing included: get your exact price in seconds and order online from MyThesis.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: answer first, then a two-column estimator (inputs | sticky total) that stacks on phones with a fixed bottom price bar. */
+:root{
+  --bg:#f7f4ee; --paper:#fffdf9; --ink:#1b2437; --ink-2:#4b5366; --line:#d9d3c6;
+  --navy:#17305a; --navy-2:#0f2244; --gold:#b48a3c; --gold-2:#d9b56a; --ok:#2e7d4f; --ok-bg:#e8f3ec; --err:#b23b3b;
+  --font-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --font-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a26; --paper:#1c2434; --ink:#ebe6da; --ink-2:#aeb3c0; --line:#34405a;
+  --navy:#243f73; --navy-2:#1a2d55; --gold:#d2a95c; --gold-2:#e7c98a; --ok:#6fcf97; --ok-bg:#1d3328; --err:#ff9b9b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a26; --paper:#1c2434; --ink:#ebe6da; --ink-2:#aeb3c0; --line:#34405a;
+  --navy:#243f73; --navy-2:#1a2d55; --gold:#d2a95c; --gold-2:#e7c98a; --ok:#6fcf97; --ok-bg:#1d3328; --err:#ff9b9b; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1000px;margin:0 auto}
+h1,h2{font-family:var(--font-display);font-weight:600;line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,5vw,46px)}
+h2{font-size:clamp(22px,3vw,28px);margin-bottom:10px}
+h3{font-size:16px;font-weight:600;margin:0 0 6px}
+p{margin:0 0 12px;max-width:68ch}
+a{color:var(--navy)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) a{color:var(--gold-2)}} :root[data-theme="dark"] a{color:var(--gold-2)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.lead{font-size:18px;color:var(--ink-2);max-width:62ch}
+.muted{color:var(--ink-2);font-size:14px}
+.num{font-variant-numeric:tabular-nums}
+section{padding-block:28px;border-top:1px solid var(--line);min-width:0}
+header{padding-block:36px 24px;display:grid;gap:14px}
+[hidden]{display:none!important}
+
+/* short answer */
+.answer{background:var(--navy);color:#fff;border-radius:16px;padding:22px;display:grid;gap:14px}
+.answer h2{color:#fff;font-size:clamp(20px,2.6vw,24px);margin:0}
+.answer p{color:#fff;opacity:.92;max-width:none;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:10px 14px;min-width:120px}
+.chip .k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.chip .v{font-family:var(--font-display);font-size:24px;font-weight:600;color:var(--gold-2)}
+.chip .s{font-size:12px;opacity:.85}
+.trust{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--ink-2)}
+.trust span::before{content:"✓ ";color:var(--ok);font-weight:600}
+
+/* estimator */
+.calc{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+@media (max-width:760px){.calc{grid-template-columns:1fr}}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.field{display:grid;gap:6px;margin-bottom:18px;min-width:0}
+.field>*{min-width:0}
+.field label,.field .lbl{font-weight:600;font-size:15px}
+.hint{font-size:13px;color:var(--ink-2)}
+.err{color:var(--err);font-size:13px}
+input[type=number]{font:inherit;font-size:18px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:100%;max-width:200px;box-sizing:border-box}
+input:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--gold-2);outline-offset:2px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{font:inherit;font-size:15px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--ink);cursor:pointer;text-align:left}
+.seg button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.seg button .sub{display:block;font-size:12px;opacity:.8}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+@media (max-width:560px){.tiles{grid-template-columns:repeat(3,1fr)}}
+.tiles button{font:inherit;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);padding:10px 6px;cursor:pointer;display:grid;gap:2px;text-align:center}
+.tiles button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tiles .n{font-weight:600} .tiles .p{font-family:var(--font-display);font-size:18px} .tiles .e{font-size:11px;opacity:.8}
+.swatches{display:flex;flex-wrap:wrap;gap:8px}
+.swatches button{width:40px;height:40px;border-radius:50%;border:3px solid transparent;cursor:pointer;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+.swatches button[aria-pressed="true"]{border-color:var(--gold)}
+
+.result{position:sticky;top:env(safe-area-inset-top,0px)}
+.total-big{display:grid;gap:2px;margin-bottom:14px}
+.total-big .k{font-size:13px;color:var(--ink-2)}
+.total-big .v{font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1.1}
+.total-big .s{font-size:14px;color:var(--ink-2)}
+.book{display:flex;gap:10px;align-items:flex-end;margin:6px 0 16px}
+.cover{width:76px;height:106px;border-radius:3px 7px 7px 3px;background:var(--cover,#17171a);box-shadow:inset 6px 0 0 rgba(0,0,0,.25),0 8px 18px rgba(0,0,0,.25);display:grid;place-items:center;color:var(--gold-2);font-family:var(--font-display);font-size:8px;letter-spacing:.08em;text-align:center;padding:8px;line-height:1.4}
+.spine{width:20px;height:106px;border-radius:3px;background:var(--cover,#17171a);box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);writing-mode:vertical-rl;color:var(--gold-2);font-size:7px;letter-spacing:.1em;display:grid;place-items:center}
+.lines{display:grid;gap:7px;margin:0}
+.lines div{display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.lines dt{color:var(--ink-2)} .lines dd{margin:0;font-weight:500}
+.lines .inc dd{color:var(--ok)}
+.lines .total{border-top:1px solid var(--line);padding-top:10px;margin-top:4px;font-size:17px;font-weight:600}
+.lines .total dt{color:var(--ink)}
+.incl{margin-top:14px;background:var(--ok-bg);border-radius:12px;padding:12px 14px;display:grid;gap:2px}
+.incl .a{font-weight:600;color:var(--ok)} .incl .b{font-size:13px;color:var(--ink-2)}
+.cta{display:block;margin-top:16px;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;padding:14px 20px;border-radius:12px;text-align:center}
+.cta:hover{background:var(--navy-2)} .cta[aria-disabled="true"]{opacity:.55;pointer-events:none}
+.next{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px;color:var(--ink-2)}
+.next li{display:flex;gap:10px} .next b{color:var(--gold);font-family:var(--font-display);min-width:18px}
+
+/* mobile price bar */
+.bar{display:none}
+@media (max-width:760px){
+  body{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .result{position:static}
+  .bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:5;gap:12px;align-items:center;justify-content:space-between;background:var(--paper);border-top:1px solid var(--line);padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+  .bar .t{font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1} .bar .s{font-size:12px;color:var(--ink-2)}
+  .bar a{background:var(--navy);color:#fff;text-decoration:none;font-weight:600;padding:12px 16px;border-radius:10px;white-space:nowrap}
+}
+
+/* printing value */
+.pv{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:560px){.pv{grid-template-columns:1fr 1fr}}
+.tile{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px}
+.tile .k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.tile .v{font-size:26px;font-weight:600;font-family:var(--font-display)}
+.reveal{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:10px}
+.reveal .ref{font-size:14px;color:var(--ink-2)}
+.reveal .refv{font-size:clamp(34px,6vw,52px);font-family:var(--font-display);font-weight:600;text-decoration:line-through;text-decoration-color:var(--gold);text-decoration-thickness:3px}
+.stamp{display:inline-grid;gap:2px;justify-self:start;padding:12px 16px;border:2px solid var(--gold);border-radius:10px;color:var(--gold);font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:.04em;transform:rotate(-3deg);background:var(--ok-bg)}
+.stamp small{font-family:var(--font-body);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ok)}
+.pop{animation:pop .5s cubic-bezier(.2,.9,.3,1.3)} .fade{opacity:0}
+@keyframes pop{from{transform:scale(.6) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(-3deg);opacity:1}}
+@media (prefers-reduced-motion:reduce){.pop{animation:none}}
+.replay{justify-self:start;font:inherit;font-size:13px;font-weight:600;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-2);cursor:pointer}
+.replay:hover{color:var(--ink);border-color:var(--gold)}
+
+/* reviews */
+.rating{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:14px}
+.rating .big{font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1}
+.rating .stars{color:var(--gold);letter-spacing:2px;font-size:20px}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:760px){.reviews{grid-template-columns:1fr}}
+.review{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px;align-content:start}
+.review .stars{color:var(--gold);letter-spacing:2px;font-size:14px}
+.review q{quotes:"\201C" "\201D";font-size:15px}
+.review .who{font-size:13px;color:var(--ink-2)}
+/* what you get */
+.get{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
+@media (max-width:700px){.get{grid-template-columns:1fr}}
+.get img{width:100%;max-width:100%;border-radius:14px;display:block;aspect-ratio:1600/1149;object-fit:cover}
+.get ul{margin:0;padding-left:0;list-style:none;display:grid;gap:10px}
+.get li{display:flex;gap:10px} .get li::before{content:"✓";color:var(--ok);font-weight:600}
+
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.tbl{overflow-x:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+@media (max-width:600px){.two{grid-template-columns:1fr}}
+ul.plain{padding-left:20px;margin:0} ul.plain li{margin-bottom:4px}
+.faq details{border-bottom:1px solid var(--line);padding:10px 0}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{margin-top:8px}
+.provider{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px}
+.provider strong{font-family:var(--font-display);font-size:20px}
+footer{padding-block:28px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2)}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">MyThesis · Thesis printing &amp; hardcover binding · Auckland, delivered NZ-wide</div>
+  <h1>How much does thesis binding cost in New Zealand?</h1>
+  <div class="answer">
+    <h2>The short answer: from $198 a copy, printing included.</h2>
+    <p>One hardcover copy is $298. Three copies are $594, which is $198 each. Every copy is printed on 100gsm paper (colour pages too), bound in buckram cloth and lettered in gold. Add 15% GST at checkout. Nothing per page, nothing for colour.</p>
+    <div class="chips" id="chips"></div>
+    <p class="muted" style="color:#fff;opacity:.75;font-size:13px">MyThesis published prices as at <span id="asof"></span>, re-checked <span id="recheck"></span>. Estimates only; the exact price is confirmed on the order page.</p>
+  </div>
+  <div class="trust"><span><a href="#reviews" style="text-decoration:none;font-weight:600">4.2★ on Google, 5 reviews</a></span><span>Binding NZ theses since 2010</span><span>Hand-finished in Auckland</span><span>University-standard A4 buckram</span><span>Ready in 5 working days</span><span>Secure payment on mythesis.co.nz</span></div>
+</header>
+
+<section id="calculator" aria-labelledby="calc-h">
+  <h2 id="calc-h">Get your exact price</h2>
+  <p class="muted">Six choices. The total updates as you go, GST included.</p>
+  <div class="calc">
+    <div class="panel">
+      <div class="field">
+        <span class="lbl" id="copies-l">How many copies?</span>
+        <div class="tiles" role="group" aria-labelledby="copies-l" id="copies"></div>
+        <span class="hint">Most students order three: one for the library or department, one for the supervisor, one for home. Need more than 5? MyThesis quotes those by email.</span>
+      </div>
+      <div class="field">
+        <label for="pages">How many pages in your thesis?</label>
+        <input type="number" id="pages" inputmode="numeric" min="10" max="500" step="1" value="320">
+        <span class="hint">Page count does not change the price: a 120-page Master's thesis and a 480-page PhD cost the same to bind, up to 500 pages a copy.</span>
+        <span class="err" id="pages-err" hidden></span>
+      </div>
+      <div class="field">
+        <label for="colour">How many of those are colour pages?</label>
+        <input type="number" id="colour" inputmode="numeric" min="0" max="500" step="1" value="35">
+        <span class="hint">Figures, photos, maps. Colour is printed at no extra charge; this only affects the printing-value estimate below.</span>
+        <span class="err" id="colour-err" hidden></span>
+      </div>
+      <div class="field">
+        <span class="lbl" id="mat-l">Cover</span>
+        <div class="seg" role="group" aria-labelledby="mat-l" id="material">
+          <button type="button" data-v="buckram" aria-pressed="true">Buckram cloth <span class="sub">Included · what universities specify</span></button>
+          <button type="button" data-v="leatherette" aria-pressed="false">Leatherette <span class="sub" id="lth-sub"></span></button>
+        </div>
+        <div class="swatches" role="group" aria-label="Cover colour" id="swatches"></div>
+        <span class="hint" id="colour-name"></span>
+      </div>
+      <div class="field">
+        <span class="lbl" id="rush-l">When do you need it?</span>
+        <div class="seg" role="group" aria-labelledby="rush-l" id="rush">
+          <button type="button" data-v="standard" aria-pressed="true">Standard <span class="sub" id="std-sub"></span></button>
+          <button type="button" data-v="rush" aria-pressed="false">Rush <span class="sub" id="rush-sub"></span></button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <span class="lbl" id="del-l">Pickup or delivery?</span>
+        <div class="seg" role="group" aria-labelledby="del-l" id="delivery">
+          <button type="button" data-v="pickup" aria-pressed="true">Pick up in Botany Downs, Auckland <span class="sub">Free</span></button>
+          <button type="button" data-v="courier" aria-pressed="false">Courier anywhere in NZ <span class="sub" id="courier-sub"></span></button>
+        </div>
+        <span class="hint">Courier transit is on top of production: Auckland next working day, North Island 1 to 2 days, South Island 2 to 3.</span>
+      </div>
+    </div>
+
+    <div class="panel result" aria-live="polite">
+      <div class="total-big"><span class="k" id="tot-k">Your price, including GST</span><span class="v num" id="tot-v"></span><span class="s num" id="tot-s"></span></div>
+      <div class="book" aria-hidden="true"><div class="spine" id="spine">YOUR NAME · PhD · 2026</div><div class="cover" id="cover">YOUR THESIS TITLE<br>AUTHOR NAME</div></div>
+      <dl class="lines">
+        <div><dt id="bind-k">Hardcover binding</dt><dd class="num" id="bind-v"></dd></div>
+        <div class="inc"><dt>Printing, B&amp;W and colour</dt><dd>Included</dd></div>
+        <div class="inc"><dt>Gold lettering, cover and spine</dt><dd>Included</dd></div>
+        <div id="mat-row" hidden><dt>Leatherette cover</dt><dd class="num" id="mat-v"></dd></div>
+        <div id="rush-row" hidden><dt>Rush production</dt><dd class="num" id="rush-v"></dd></div>
+        <div id="del-row" hidden><dt>Courier</dt><dd class="num" id="del-v"></dd></div>
+        <div><dt>Subtotal excluding GST</dt><dd class="num" id="sub-v"></dd></div>
+        <div><dt>GST 15%</dt><dd class="num" id="gst-v"></dd></div>
+        <div class="total"><dt>Total including GST</dt><dd class="num" id="tot-v2"></dd></div>
+      </dl>
+      <div class="incl"><span class="a">Printing included: $0 extra</span><span class="b" id="incl-b"></span></div>
+      <p class="muted" id="quote-note" hidden>Over 500 pages or more than 5 copies is quoted individually. Email MyThesis with your page count.</p>
+      <a class="cta" id="cta" href="https://mythesis.co.nz/order" target="_blank" rel="noopener">Continue to MyThesis &amp; Order</a>
+      <ol class="next"><li><b>1</b>Upload your PDF on mythesis.co.nz (or email it later).</li><li><b>2</b>Type your title and name, check the live cover preview.</li><li><b>3</b>Pay by card, Apple Pay or Google Pay. Done in five minutes.</li></ol>
+    </div>
+  </div>
+</section>
+
+<section id="printing-value" aria-labelledby="pv-h">
+  <h2 id="pv-h">Why "printing included" matters</h2>
+  <p>Most binderies and print shops charge per side, and a thesis has a lot of sides. Pick where you would otherwise print, and see what those pages would cost there.</p>
+  <div class="field">
+    <span class="lbl" id="basis-l">Where would you otherwise print?</span>
+    <div class="seg" role="group" aria-labelledby="basis-l" id="basis"></div>
+    <span class="hint" id="basis-hint"></span>
+  </div>
+  <div class="pv">
+    <div class="tile"><div class="k">Total printed sides</div><div class="v num" id="pv-total"></div></div>
+    <div class="tile"><div class="k">Black &amp; white</div><div class="v num" id="pv-bw"></div></div>
+    <div class="tile"><div class="k">Colour</div><div class="v num" id="pv-col"></div></div>
+  </div>
+  <div class="reveal">
+    <div class="ref">What that printing would cost at this rate, excluding GST</div>
+    <div class="refv num" id="refv"></div>
+    <div class="stamp" id="stamp"><small>With MyThesis binding</small>$0 extra</div>
+    <button type="button" id="replay" class="replay">Replay</button>
+    <p class="muted" style="margin:0">This is what another provider would charge for the printing. It is not a discount off a MyThesis price, and your real saving depends on where you would otherwise print.</p>
+  </div>
+</section>
+
+<section id="reviews" aria-labelledby="rev-h">
+  <h2 id="rev-h">What students say</h2>
+  <div class="rating"><span class="big">4.2</span><span class="stars" aria-label="4.2 out of 5 stars">★★★★☆</span><span class="muted">5 Google reviews for MyThesis (listed as University Thesis Binding, Botany Downs), as at 20 October 2026. <a href="https://www.google.com/maps?cid=17560543480408436074" target="_blank" rel="noopener">Read every review on Google</a>, including the one-star review from 2021 and the owner's replies.</span></div>
+  <div class="reviews">
+    <div class="review"><span class="stars" aria-label="5 stars">★★★★★</span><q>Excellent thesis printing and binding service! The quality of the hardcover binding was outstanding and the gold lettering looked beautiful and professional.</q><span class="who">Zoe Z. · Google review, October 2026</span></div>
+    <div class="review"><span class="stars" aria-label="5 stars">★★★★★</span><q>Really happy with how my thesis turned out. The binding is neat, the cover looks professional, and the finished copy feels solid. A lovely way to mark the end of all that hard work!</q><span class="who">J F · Google review, October 2026</span></div>
+    <div class="review"><span class="stars" aria-label="5 stars">★★★★★</span><q>I received my bounded thesis x 3 from My Thesis.Co.NZ within one week of placing the order. David went beyond the call of duty to ensure that he could meet my requirements in terms of sourcing a burgundy red buckram.</q><span class="who">Moe E. · Google review, September 2026</span></div>
+  </div>
+</section>
+
+<section id="what-you-get" aria-labelledby="get-h">
+  <h2 id="get-h">What you get for the price</h2>
+  <div class="get">
+    <div class="book" aria-hidden="true" style="justify-content:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px"><div class="spine" style="height:160px;width:28px">YOUR NAME · PhD · 2026</div><div class="cover" style="width:112px;height:160px;font-size:11px">YOUR THESIS TITLE<br>AUTHOR NAME</div></div>
+    <ul>
+      <li><span><strong>Printing on 100gsm paper</strong>, double-sided, colour pages included, up to 500 pages a copy.</span></li>
+      <li><span><strong>Sewn hardcover in buckram cloth</strong>, black, blue, green or burgundy. The A4 format NZ universities specify for hardbound copies.</span></li>
+      <li><span><strong>Gold foil lettering</strong>: title and your name on the front, name, degree and year on the spine. You proof every letter on a live preview before paying.</span></li>
+      <li><span><strong>Ready in 5 working days</strong>, or a 24-hour rush. Pick up in Auckland or courier to any NZ address, including your department.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="pricing" aria-labelledby="pr-h">
+  <h2 id="pr-h">Prices at a glance</h2>
+  <div class="tbl"><table id="tiers"><thead><tr><th>Copies</th><th>Price ex GST</th><th>Per copy</th><th>Including GST</th></tr></thead><tbody></tbody></table></div>
+  <div class="two">
+    <div><h3>What changes the price</h3><ul class="plain" id="extras"></ul></div>
+    <div><h3>What never changes the price</h3><ul class="plain"><li>Page count, up to 500 pages a copy</li><li>Colour pages</li><li>Cover colour</li><li>Gold lettering on the front cover and spine</li></ul></div>
+  </div>
+</section>
+
+<section id="faq" class="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Questions students ask before ordering</h2>
+  <details open><summary>Will my university accept it?</summary><p>The binding is A4, buckram-covered with gold lettering, which is the hardbound specification NZ universities use for deposit and library copies. Most universities now take a digital deposit and leave hardbound copies to the student, so check your faculty's current wording and put any required text in the order notes.</p></details>
+  <details><summary>Do I have to be in Auckland?</summary><p>No. You order and pay online, upload a PDF, and the finished copies are couriered anywhere in New Zealand for a flat $11.50. Auckland students can collect in Botany Downs for free.</p></details>
+  <details><summary>Can you make my deadline?</summary><p>Standard production is five working days from file and payment. A 24-hour rush is available for 40% on top of the binding price. Allow courier transit on top: Auckland next working day, North Island one to two days, South Island two to three.</p></details>
+  <details><summary>Is printing really included, even colour?</summary><p>Yes. MyThesis prints your PDF double-sided on 100gsm paper, colour pages included, then binds it. The only extras are a leatherette cover, rush production and courier delivery.</p></details>
+  <details><summary>What file do I send?</summary><p>One flat PDF with pages in final order, A4, fonts embedded. Word files reflow between computers, so printing is from PDF only. You can upload now or email it after ordering.</p></details>
+  <details><summary>Is GST included?</summary><p>MyThesis lists prices excluding GST and adds 15% at checkout. This page shows both, so the number you see here is the number you pay.</p></details>
+  <details><summary>What if my thesis is over 500 pages?</summary><p>Longer theses are bound in two volumes and quoted individually. The calculator stops at 500 pages a copy and asks you to email for a quote rather than guess.</p></details>
+</section>
+
+<section id="reference-rates" aria-labelledby="rr-h">
+  <h2 id="rr-h">Where the reference printing rates come from</h2>
+  <p class="muted">Published prices, checked on the dates shown. They are not directly comparable: a campus printer uses standard copier paper and needs a student account; a bindery prints on heavier paper as part of a binding job.</p>
+  <div class="tbl"><table id="rates"><thead><tr><th>Source</th><th>B&amp;W per side</th><th>Colour per side</th><th>Notes</th><th>Checked</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section id="provider" aria-labelledby="prov-h">
+  <h2 id="prov-h">About MyThesis</h2>
+  <div class="provider">
+    <div><strong>MyThesis</strong><br>Professional thesis printing and hardcover binding in New Zealand since 2010. Hand-finished in Botany Downs, Auckland, ordered online, delivered nationwide.</div>
+    <div><a href="https://mythesis.co.nz/?utm_source=claude_public_artifact&utm_medium=referral&utm_campaign=thesis_cost_calculator_test&utm_content=v4chat" target="_blank" rel="noopener">mythesis.co.nz</a> · <a href="https://mythesis.co.nz/pricing?utm_source=claude_public_artifact&utm_medium=referral&utm_campaign=thesis_cost_calculator_test&utm_content=v4chat" target="_blank" rel="noopener">Full pricing</a> · <a href="https://mythesis.co.nz/faq?utm_source=claude_public_artifact&utm_medium=referral&utm_campaign=thesis_cost_calculator_test&utm_content=v4chat" target="_blank" rel="noopener">FAQ</a> · <a href="https://mythesis.co.nz/contact?utm_source=claude_public_artifact&utm_medium=referral&utm_campaign=thesis_cost_calculator_test&utm_content=v4chat" target="_blank" rel="noopener">Contact</a></div>
+  </div>
+</section>
+
+<footer>
+  <p>This is the October 2026 edition of the calculator. The kōwhai-yellow test note in this paragraph lets us check whether search engines can read the page.</p>
+  <p>Pricing configuration version <span id="cfgv"></span>. Reference rates belong to their publishers and can change at any time. This tool is published by MyThesis and is not affiliated with any university or with the publishers of the reference rates.</p>
+</footer>
+</div>
+
+<div class="bar" aria-hidden="true"><div><div class="t num" id="bar-t"></div><div class="s" id="bar-s"></div></div><a id="bar-cta" href="https://mythesis.co.nz/order" target="_blank" rel="noopener">Order</a></div>
+
+<script>
+// ---- Configuration (verified snapshot). All money in NZD, ex GST unless noted. ----
+const CONFIG = {
+  version: "2026-10-20.4", asOf: "8 October 2026", recheck: "20 October 2026", gstRate: 0.15, maxPages: 500, minPages: 10,
+  copyTiers: [{copies:1,price:298},{copies:2,price:498},{copies:3,price:594,badge:"Best value"},{copies:4,price:792},{copies:5,price:990}],
+  materials: {buckram:{name:"Buckram cloth",perCopy:0},leatherette:{name:"Leatherette",perCopy:20}},
+  colours: [
+    {id:"black",name:"Black",material:"buckram",hex:"#17171a"},{id:"blue",name:"Blue",material:"buckram",hex:"#2a56b9"},
+    {id:"green",name:"Green",material:"buckram",hex:"#1f8a4c"},{id:"burgundy",name:"Burgundy",material:"buckram",hex:"#55202a"},
+    {id:"lth_black",name:"Black",material:"leatherette",hex:"#141414"},{id:"lth_burgundy",name:"Burgundy",material:"leatherette",hex:"#4a1620"},
+    {id:"lth_blue",name:"Blue",material:"leatherette",hex:"#1f3f8f"},{id:"lth_green",name:"Green",material:"leatherette",hex:"#1c6b43"}],
+  rushPercent: 0.40, rushLabel: "24-hour rush", standardDays: 5, courierFee: 11.50,
+  orderUrl: "https://mythesis.co.nz/order",
+  utm: "utm_source=claude_public_artifact&utm_medium=referral&utm_campaign=thesis_cost_calculator_test&utm_content=v4chat",
+  referenceRates: [
+    {id:"printshop", short:"A print shop", name:"Commercial print shop (Print Online NZ)", bw:0.12, colour:0.35, gst:"ex GST", note:"Online A4 digital printing on plain paper.", checked:"8 Oct 2026", url:"https://www.printonline.co.nz/products/a4-colour-printing", default:true},
+    {id:"bindery", short:"A bindery", name:"Auckland bindery printing (The Bookbindery)", bw:0.33, colour:1.50, gst:"plus GST", note:"Per side on 100gsm paper, printed as part of a thesis binding job.", checked:"8 Oct 2026", url:"https://www.thebookbindery.co.nz/pages/thesis-printing-and-binding"},
+    {id:"campus", short:"On campus", name:"University campus printer (Victoria University of Wellington)", bw:0.05, colour:0.10, gst:"GST basis not stated", note:"Per side on standard copier paper with a student print account.", checked:"8 Oct 2026", url:"https://www.wgtn.ac.nz/digital-solutions/printing"}
+  ]
+};
+
+// ---- Pure calculation (separate from the UI so it can be tested and reused) ----
+function round2(n){return Math.round((n+Number.EPSILON)*100)/100}
+function validate(s){
+  const e={};
+  if(!Number.isInteger(s.pages)||s.pages<CONFIG.minPages) e.pages=`Enter at least ${CONFIG.minPages} pages.`;
+  else if(s.pages>CONFIG.maxPages) e.pages=`Over ${CONFIG.maxPages} pages is quoted individually.`;
+  if(!Number.isInteger(s.colour)||s.colour<0) e.colour="Enter 0 or more colour pages.";
+  else if(Number.isInteger(s.pages)&&s.colour>s.pages) e.colour="Colour pages cannot exceed the page count.";
+  return e;
+}
+function printing(s,rate){
+  const sides=s.pages*s.copies, colour=Math.min(s.colour,s.pages)*s.copies, bw=sides-colour;
+  return {sides,bw,colour,value:round2(bw*rate.bw+colour*rate.colour)};
+}
+function quote(s){
+  const tier=CONFIG.copyTiers.find(t=>t.copies===s.copies); if(!tier) return null;
+  const binding=tier.price, material=round2(CONFIG.materials[s.material].perCopy*s.copies);
+  const rush=s.rush?round2((binding+material)*CONFIG.rushPercent):0, courier=s.courier?CONFIG.courierFee:0;
+  const subtotal=round2(binding+material+rush+courier), gst=round2(subtotal*CONFIG.gstRate);
+  return {binding,material,rush,courier,subtotal,gst,total:round2(subtotal+gst)};
+}
+const nzd=n=>new Intl.NumberFormat("en-NZ",{style:"currency",currency:"NZD"}).format(n);
+
+// ---- UI ----
+const state={pages:320,colour:35,copies:3,material:"buckram",colourId:"black",rush:false,courier:false,basis:CONFIG.referenceRates.find(r=>r.default).id};
+const $=id=>document.getElementById(id);
+const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+$("asof").textContent=CONFIG.asOf; $("recheck").textContent=CONFIG.recheck; $("cfgv").textContent=CONFIG.version;
+$("lth-sub").textContent=`+${nzd(CONFIG.materials.leatherette.perCopy)} a copy · keepsake finish`;
+$("std-sub").textContent=`${CONFIG.standardDays} working days · Included`;
+$("rush-sub").textContent=`${CONFIG.rushLabel} · +${Math.round(CONFIG.rushPercent*100)}% of binding`;
+$("courier-sub").textContent=`+${nzd(CONFIG.courierFee)} flat, tracked`;
+CONFIG.copyTiers.slice(0,3).forEach(t=>{$("chips").insertAdjacentHTML("beforeend",`<div class="chip"><div class="k">${t.copies} ${t.copies===1?"copy":"copies"}</div><div class="v num">${nzd(t.price)}</div><div class="s num">${nzd(round2(t.price/t.copies))} each · ${nzd(round2(t.price*(1+CONFIG.gstRate)))} incl GST</div></div>`)});
+
+function group(id,get,set){const el=$(id);el.addEventListener("click",ev=>{const b=ev.target.closest("button");if(!b)return;set(b.dataset.v);render(true)});
+  return ()=>[...el.querySelectorAll("button")].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===String(get()))))}
+CONFIG.copyTiers.forEach(t=>{$("copies").insertAdjacentHTML("beforeend",`<button type="button" data-v="${t.copies}"><span class="n">${t.copies}</span><span class="p num">${nzd(t.price)}</span><span class="e num">${t.badge?t.badge:nzd(round2(t.price/t.copies))+" each"}</span></button>`)});
+CONFIG.referenceRates.forEach(r=>{$("basis").insertAdjacentHTML("beforeend",`<button type="button" data-v="${r.id}">${r.short} <span class="sub num">B&amp;W ${nzd(r.bw)} · colour ${nzd(r.colour)} per side</span></button>`)});
+const syncCopies=group("copies",()=>state.copies,v=>state.copies=+v);
+const syncMat=group("material",()=>state.material,v=>{state.material=v;state.colourId=CONFIG.colours.find(c=>c.material===v).id;fillSwatches()});
+const syncRush=group("rush",()=>state.rush?"rush":"standard",v=>state.rush=v==="rush");
+const syncDel=group("delivery",()=>state.courier?"courier":"pickup",v=>state.courier=v==="courier");
+const syncBasis=group("basis",()=>state.basis,v=>state.basis=v);
+function fillSwatches(){const w=$("swatches");w.innerHTML="";CONFIG.colours.filter(c=>c.material===state.material).forEach(c=>{const b=document.createElement("button");b.type="button";b.dataset.v=c.id;b.style.setProperty("--sw",c.hex);b.setAttribute("aria-label",c.name);b.title=c.name;w.appendChild(b)})}
+fillSwatches();
+const syncSw=group("swatches",()=>state.colourId,v=>state.colourId=v);
+["pages","colour"].forEach(id=>$(id).addEventListener("input",e=>{state[id]=e.target.value===""?NaN:Number(e.target.value);render(true)}));
+
+const tb=$("tiers").querySelector("tbody");
+CONFIG.copyTiers.forEach(t=>{tb.insertAdjacentHTML("beforeend",`<tr><td>${t.copies}${t.badge?` <span class="muted">· ${t.badge}</span>`:""}</td><td class="num">${nzd(t.price)}</td><td class="num">${nzd(round2(t.price/t.copies))}</td><td class="num">${nzd(round2(t.price*(1+CONFIG.gstRate)))}</td></tr>`)});
+$("extras").innerHTML=`<li>Leatherette cover instead of buckram: +${nzd(CONFIG.materials.leatherette.perCopy)} a copy</li><li>${CONFIG.rushLabel}: +${Math.round(CONFIG.rushPercent*100)}% of the binding and cover price</li><li>Courier anywhere in New Zealand: ${nzd(CONFIG.courierFee)} flat; pickup in Auckland is free</li><li>GST at ${Math.round(CONFIG.gstRate*100)}%, added at checkout</li>`;
+const rb=$("rates").querySelector("tbody");
+CONFIG.referenceRates.forEach(r=>{rb.insertAdjacentHTML("beforeend",`<tr><td><a href="${r.url}" target="_blank" rel="noopener">${r.name}</a></td><td class="num">${nzd(r.bw)}</td><td class="num">${nzd(r.colour)}</td><td>${r.note} ${r.gst}.</td><td>${r.checked}</td></tr>`)});
+
+let lastValue=null;
+function countUp(el,to){
+  if(reduced||lastValue===null||lastValue===to){el.textContent=nzd(to);lastValue=to;return}
+  const from=lastValue,t0=performance.now(),d=600;lastValue=to;
+  (function step(t){const p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);el.textContent=nzd(from+(to-from)*e);if(p<1)requestAnimationFrame(step)})(t0);
+}
+function render(animate){
+  syncCopies();syncMat();syncRush();syncDel();syncBasis();syncSw();
+  const errs=validate(state), ok=Object.keys(errs).length===0;
+  ["pages","colour"].forEach(k=>{const e=$(k+"-err");e.textContent=errs[k]||"";e.hidden=!errs[k]});
+  const col=CONFIG.colours.find(c=>c.id===state.colourId);
+  document.querySelectorAll(".cover,.spine").forEach(el=>el.style.setProperty("--cover",col.hex));
+  $("colour-name").textContent=`${col.name} ${CONFIG.materials[state.material].name.toLowerCase()}. Colour is included; black is the most common choice for university copies.`;
+  const q=quote(state), cp=state.copies===1?"copy":"copies";
+  $("bind-k").textContent=`Hardcover binding × ${state.copies}`; $("bind-v").textContent=nzd(q.binding);
+  $("mat-row").hidden=!q.material; $("mat-v").textContent=nzd(q.material);
+  $("rush-row").hidden=!q.rush; $("rush-v").textContent=nzd(q.rush);
+  $("del-row").hidden=!q.courier; $("del-v").textContent=nzd(q.courier);
+  $("sub-v").textContent=nzd(q.subtotal); $("gst-v").textContent=nzd(q.gst); $("tot-v2").textContent=nzd(q.total);
+  $("tot-v").textContent=nzd(q.total); $("tot-s").textContent=`${state.copies} ${cp} · ${nzd(round2(q.total/state.copies))} a copy · ${nzd(q.subtotal)} ex GST`;
+  $("bar-t").textContent=nzd(q.total); $("bar-s").textContent=`${state.copies} ${cp} incl GST · ${state.rush?CONFIG.rushLabel:CONFIG.standardDays+" working days"}`;
+  const overPages=Number.isInteger(state.pages)&&state.pages>CONFIG.maxPages;
+  $("quote-note").hidden=!overPages; $("cta").setAttribute("aria-disabled",String(overPages));
+  const href=`${CONFIG.orderUrl}?copies=${state.copies}&product=thesis&${CONFIG.utm}`; $("cta").href=href; $("bar-cta").href=href;
+  const rate=CONFIG.referenceRates.find(r=>r.id===state.basis);
+  $("basis-hint").textContent=`${rate.name}. ${rate.note} Rate ${rate.gst}, checked ${rate.checked}.`;
+  if(ok){const p=printing(state,rate);
+    $("pv-total").textContent=p.sides.toLocaleString("en-NZ");$("pv-bw").textContent=p.bw.toLocaleString("en-NZ");$("pv-col").textContent=p.colour.toLocaleString("en-NZ");
+    countUp($("refv"),p.value);
+    $("incl-b").textContent=`${p.sides.toLocaleString("en-NZ")} printed sides, about ${nzd(p.value)} at ${rate.short.toLowerCase()} rates. See below.`;
+    if(animate&&!reduced){const s=$("stamp");s.classList.remove("pop");void s.offsetWidth;s.classList.add("pop")}}
+  else{["pv-total","pv-bw","pv-col"].forEach(id=>$(id).textContent="—");$("refv").textContent="—";$("incl-b").textContent="Fix the page counts above to see the printing value.";lastValue=null}
+}
+render();
+$("replay").addEventListener("click",()=>{
+  if(Object.keys(validate(state)).length) return;
+  const rate=CONFIG.referenceRates.find(r=>r.id===state.basis), p=printing(state,rate);
+  if(reduced){render(true);return}
+  const tiles=[["pv-total",p.sides],["pv-bw",p.bw],["pv-col",p.colour]], stamp=$("stamp"), refv=$("refv");
+  stamp.classList.add("fade"); refv.textContent=nzd(0); lastValue=0;
+  const t0=performance.now(), d=900;
+  (function step(t){const q=Math.min(1,(t-t0)/d), e=1-Math.pow(1-q,3);
+    tiles.forEach(([id,v])=>$(id).textContent=Math.round(v*e).toLocaleString("en-NZ"));
+    if(q<1) requestAnimationFrame(step); else { countUp(refv,p.value); setTimeout(()=>{stamp.classList.remove("fade","pop"); void stamp.offsetWidth; stamp.classList.add("pop")},700) }
+  })(t0);
+});
+</script>
